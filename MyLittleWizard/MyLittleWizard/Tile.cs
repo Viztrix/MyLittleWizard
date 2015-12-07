@@ -14,7 +14,14 @@ namespace MyLittleWizard
         TileState state;
         private float h, g, totalG;
         private Tile parent;
+        private bool noLongerWalkable, hasKey;
 
+        #region Properties
+        public bool HasKey
+        {
+            get { return hasKey; }
+            set { hasKey = value; }
+        }
         public Tiletype Type
         {
             get { return type; }
@@ -85,6 +92,7 @@ namespace MyLittleWizard
                 state = value;
             }
         }
+        #endregion
 
         public Tile(Vector2 position, Vector2 gridPos, Tiletype type) : base(position, gridPos)
         {
@@ -92,8 +100,9 @@ namespace MyLittleWizard
             this.GridPos = gridPos;
             this.type = type;
             this.layer = 0.5f;
-
-
+            hasKey = false;
+            noLongerWalkable = false;
+            
             #region type switch
             switch (type)
             {
@@ -130,7 +139,7 @@ namespace MyLittleWizard
                     State = TileState.walkable;
                     break;
                 case Tiletype.monsterPath:
-                    this.sprite = TextureLoader.monsterPath;
+                    this.sprite = TextureLoader.path;
                     State = TileState.onceWalkable;
                     break;
                 case Tiletype.portal:
@@ -166,11 +175,25 @@ namespace MyLittleWizard
                     State = TileState.unwalkable;
                     break;
                 case Tiletype.frostKey:
-                    this.sprite = TextureLoader.frostKey;
+                    if (hasKey)
+                    {
+                        this.sprite = TextureLoader.frostKeyPath;
+                        hasKey = false;
+                    }
+                    else
+                        this.sprite = TextureLoader.frostKey;
+
                     State = TileState.walkable;
                     break;
                 case Tiletype.potionKey:
-                    this.sprite = TextureLoader.potionKey;
+                    if(hasKey)
+                    {
+                        this.sprite = TextureLoader.potionKeyPath;
+                        hasKey = false;
+                    }
+                    else
+                        this.sprite = TextureLoader.potionKey;
+
                     State = TileState.walkable;
                     break;
                 case Tiletype.potionTower:
@@ -182,7 +205,7 @@ namespace MyLittleWizard
                     State = TileState.walkable;
                     break;
                 case Tiletype.monsterPath:
-                    this.sprite = TextureLoader.monsterPath;
+                    this.sprite = TextureLoader.path;
                     State = TileState.onceWalkable;
                     break;
                 case Tiletype.portal:
@@ -194,6 +217,23 @@ namespace MyLittleWizard
                     State = TileState.walkable;
                     break;
             }
+        }
+
+        public override void Update(GameTime gametime)
+        {
+            if(GameWorld.Wizard.GridPos == this.gridPos && this.state == TileState.onceWalkable)
+            {
+                this.state = TileState.unwalkable;
+                noLongerWalkable = true;
+            }
+
+            if (noLongerWalkable && GameWorld.Wizard.GridPos != this.gridPos)
+            {
+
+                this.sprite = TextureLoader.monsterPath;
+            }
+
+            base.Update(gametime);
         }
     }
 }

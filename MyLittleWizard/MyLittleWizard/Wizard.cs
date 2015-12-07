@@ -6,21 +6,20 @@ using System.Text;
 
 namespace MyLittleWizard
 {
+    enum Goal { potionKey, potionTower, frostKey, frostTower }
+
     class Wizard : GameObject
     {
         private bool hasPotionKey, hasFrostKey, hasReachedFrostTower, hasReachedPotionTower, moving;
         private Stack<Tile> path;
         float deltaTime, coolDown;
-        int goalX, goalY;
+        private Vector2 goal;
+        private List<Tile> goals;
 
-        public int GoalY
+        public Vector2 Goal
         {
-            get { return goalY; }
-        }
-
-        public int GoalX
-        {
-            get { return goalX; }
+            get { return goal; }
+            set { goal = value; }
         }
 
         public Wizard(Vector2 position, Vector2 gridPos)
@@ -31,9 +30,10 @@ namespace MyLittleWizard
             this.position = this.GridPos * 64;
             this.layer = 1;
 
-            goalX = 0;
-            goalY = 9;
+            goals = new List<Tile>();
+            goal = new Vector2(5, 8);
         }
+
 
         private Vector2 GetSpawnPoint()
         {
@@ -60,7 +60,7 @@ namespace MyLittleWizard
             {
                 moving = true;
                 
-                path = GameWorld.GameGrid.AStar(GameWorld.GameGrid.Tiles[(int)gridPos.X,(int)gridPos.Y], GameWorld.GameGrid.Tiles[goalX,goalY]);
+                path = GameWorld.GameGrid.AStar(GameWorld.GameGrid.Tiles[(int)gridPos.X,(int)gridPos.Y], GameWorld.GameGrid.Tiles[(int)goal.X, (int)goal.Y]);
             }
 
             if (path.Count != 0 && deltaTime > coolDown)
@@ -69,10 +69,41 @@ namespace MyLittleWizard
                 this.gridPos = position / 64;
                 deltaTime = 0;
             }
+            else if(path.Count == 0 && gridPos != goal)
+            {
+                moving = false;
+            }
 
-
+            if(PositionReached(goal))
+            {
+                goal = new Vector2(8, 8);
+            }
 
             base.Update(gametime);
+        }
+
+        private bool PositionReached(Vector2 goal)
+        {
+            if(gridPos == goal)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        private void SetupGoals()
+        {
+            foreach (Tile tile in GameWorld.GameGrid.Tiles)
+            {
+                if (tile.Type == Tiletype.frostKey || tile.Type == Tiletype.potionKey || tile.Type == Tiletype.potionTower || tile.Type == Tiletype.frostTower)
+                {
+                    goals.Add(tile);
+                }
+            }
         }
     }
 }

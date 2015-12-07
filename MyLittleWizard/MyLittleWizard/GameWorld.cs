@@ -12,8 +12,14 @@ namespace MyLittleWizard
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Wizard wizard;
+        static Wizard wizard;
         static Grid gameGrid;
+
+
+        internal static Wizard Wizard
+        {
+            get { return wizard; }
+        }
 
         internal static Grid GameGrid
         {
@@ -92,7 +98,7 @@ namespace MyLittleWizard
                 Exit();
 
 
-            this.Window.Title = ("Pos: " + wizard.GridPos.ToString() + " - Goal: {X:" + wizard.GoalX + " Y:" + wizard.GoalY + "}");
+            this.Window.Title = ("Pos: " + wizard.GridPos.ToString() + " - Goal: {X:" + wizard.Goal.X + " Y:" + wizard.Goal.Y + "}");
             // TODO: Add your update logic here
             foreach (GameObject obj in gameObjects)
             {

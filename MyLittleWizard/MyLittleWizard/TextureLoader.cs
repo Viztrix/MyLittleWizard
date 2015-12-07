@@ -9,7 +9,7 @@ namespace MyLittleWizard
 {
     public class TextureLoader
     {
-        static public Texture2D wizard, grass, path, wall, forest, monsterPath, potionTower, frostTower, potionKey, frostKey, portal;
+        static public Texture2D wizard, grass, path, wall, forest, monsterPath, potionTower, frostTower, potionKey, frostKey, portal, frostKeyPath, potionKeyPath;
 
         public static void LoadContent(ContentManager content)
         {
@@ -22,7 +22,9 @@ namespace MyLittleWizard
             potionTower = content.Load<Texture2D>(@"PotionTower");
             frostTower = content.Load<Texture2D>(@"FrostTower");
             potionKey = content.Load<Texture2D>(@"PotionKey");
+            potionKeyPath = content.Load<Texture2D>(@"PotionKeyPath");
             frostKey = content.Load<Texture2D>(@"FrostKey");
+            frostKeyPath = content.Load<Texture2D>(@"FrostKeyPath");
             portal = content.Load<Texture2D>(@"Portal");
 
         }
