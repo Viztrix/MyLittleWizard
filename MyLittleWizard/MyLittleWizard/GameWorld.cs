@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace MyLittleWizard
 {
@@ -11,11 +12,13 @@ namespace MyLittleWizard
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        List<GameObject> gameObjects;
 
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            gameObjects = new List<GameObject>();
         }
 
         /// <summary>
@@ -27,8 +30,12 @@ namespace MyLittleWizard
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            //gameObjects.Add(new Tile(new Vector2(50, 50), new Vector2(1, 1)));
 
             base.Initialize();
+
+            gameObjects.Add(new Wizard(new Vector2(50, 100), new Vector2(1, 1)));
+
         }
 
         /// <summary>
@@ -41,6 +48,7 @@ namespace MyLittleWizard
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            TextureLoader.LoadContent(Content);
         }
 
         /// <summary>
@@ -63,7 +71,11 @@ namespace MyLittleWizard
                 Exit();
 
             // TODO: Add your update logic here
-
+            foreach (GameObject obj in gameObjects)
+            {
+                obj.Update(gameTime);
+            }
+                
             base.Update(gameTime);
         }
 
@@ -75,9 +87,16 @@ namespace MyLittleWizard
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            spriteBatch.Begin();
+
             // TODO: Add your drawing code here
+            foreach (GameObject obj in gameObjects)
+            {
+                obj.Draw(spriteBatch);
+            }
 
             base.Draw(gameTime);
+            spriteBatch.End();
         }
     }
 }
