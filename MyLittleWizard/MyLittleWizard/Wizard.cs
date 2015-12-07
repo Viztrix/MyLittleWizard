@@ -9,7 +9,20 @@ namespace MyLittleWizard
     class Wizard : GameObject
     {
         private bool hasPotionKey, hasFrostKey, hasReachedFrostTower, hasReachedPotionTower, moving;
-        private Stack<Tile> path;    
+        private Stack<Tile> path;
+        float deltaTime, coolDown;
+        int goalX, goalY;
+
+        public int GoalY
+        {
+            get { return goalY; }
+        }
+
+        public int GoalX
+        {
+            get { return goalX; }
+        }
+
         public Wizard(Vector2 position, Vector2 gridPos)
             : base(position, gridPos)
         {
@@ -17,6 +30,9 @@ namespace MyLittleWizard
             this.GridPos = GetSpawnPoint();
             this.position = this.GridPos * 64;
             this.layer = 1;
+
+            goalX = 0;
+            goalY = 9;
         }
 
         private Vector2 GetSpawnPoint()
@@ -37,13 +53,22 @@ namespace MyLittleWizard
 
         public override void Update(GameTime gametime)
         {
+            deltaTime += gametime.ElapsedGameTime.Milliseconds;
+            coolDown = 1000;
+
             if (!moving)
             {
                 moving = true;
                 
-                //path = GameWorld.GameGrid.AStar(GameWorld.GameGrid.Tiles[(int)gridPos.X,(int)gridPos.Y], GameWorld.GameGrid.Tiles[,]);
+                path = GameWorld.GameGrid.AStar(GameWorld.GameGrid.Tiles[(int)gridPos.X,(int)gridPos.Y], GameWorld.GameGrid.Tiles[goalX,goalY]);
             }
 
+            if (path.Count != 0 && deltaTime > coolDown)
+            {
+                this.position = path.Pop().GridPos * 64;
+                this.gridPos = position / 64;
+                deltaTime = 0;
+            }
 
 
 

@@ -12,6 +12,7 @@ namespace MyLittleWizard
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Wizard wizard;
         static Grid gameGrid;
 
         internal static Grid GameGrid
@@ -53,7 +54,8 @@ namespace MyLittleWizard
             graphics.ApplyChanges();
 
             gameGrid = new Grid();
-            gameObjects.Add(new Wizard(new Vector2(50, 100), new Vector2(1, 1)));
+            wizard = new Wizard(new Vector2(50, 100), new Vector2(1, 1));
+            gameObjects.Add(wizard);
 
         }
 
@@ -89,6 +91,8 @@ namespace MyLittleWizard
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+
+            this.Window.Title = ("Pos: " + wizard.GridPos.ToString() + " - Goal: {X:" + wizard.GoalX + " Y:" + wizard.GoalY + "}");
             // TODO: Add your update logic here
             foreach (GameObject obj in gameObjects)
             {
