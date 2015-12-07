@@ -12,7 +12,21 @@ namespace MyLittleWizard
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        List<GameObject> gameObjects;
+        static Grid gameGrid;
+
+        internal static Grid GameGrid
+        {
+            get { return GameWorld.gameGrid; }
+            set { GameWorld.gameGrid = value; }
+        }
+
+        private static List<GameObject> gameObjects;
+
+        public static List<GameObject> GameObjects
+        {
+            get { return GameWorld.gameObjects; }
+            set { GameWorld.gameObjects = value; }
+        }
 
         public GameWorld()
         {
@@ -30,10 +44,15 @@ namespace MyLittleWizard
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            //gameObjects.Add(new Tile(new Vector2(50, 50), new Vector2(1, 1)));
+            graphics.PreferredBackBufferHeight = 640;
+            graphics.PreferredBackBufferWidth = 640;
+            this.IsMouseVisible = true;
 
             base.Initialize();
 
+            graphics.ApplyChanges();
+
+            gameGrid = new Grid();
             gameObjects.Add(new Wizard(new Vector2(50, 100), new Vector2(1, 1)));
 
         }
@@ -87,8 +106,8 @@ namespace MyLittleWizard
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
-
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
+            
             // TODO: Add your drawing code here
             foreach (GameObject obj in gameObjects)
             {

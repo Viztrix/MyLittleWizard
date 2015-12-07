@@ -24,3 +24,13 @@ C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Window
 C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\obj\x86\Debug\MyLittleWizard.exe
 C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\obj\x86\Debug\MyLittleWizard.pdb
 C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\Wizard.png
+C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\Grass.jpg
+C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\Path.jpg
+C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\Wall.png
+C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\Monster.png
+C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\PotionKey.png
+C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\FrostKey.png
+C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\FrostTower.png
+C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\Portal.png
+C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\PotionTower.png
+C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\Tree.png

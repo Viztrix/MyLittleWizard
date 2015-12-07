@@ -12,6 +12,7 @@ namespace MyLittleWizard
     {
         protected Texture2D sprite;
         protected Vector2 position, gridPos;
+        protected float layer, rotation, scale;
 
         public GameObject(Vector2 position, Vector2 gridPos)
         {
@@ -26,7 +27,7 @@ namespace MyLittleWizard
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.sprite, position, Color.White);
+            spriteBatch.Draw(this.sprite, position, null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, layer);
         }
     }
 }
