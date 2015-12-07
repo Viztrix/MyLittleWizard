@@ -12,7 +12,7 @@ namespace MyLittleWizard
     {
         Tiletype type;
         TileState state;
-
+        private float h, g, totalG;
         private Tile parent;
 
         public Tiletype Type
@@ -21,10 +21,75 @@ namespace MyLittleWizard
             set { type = value; }
         }
 
+        public Tile Parent
+        {
+            get
+            {
+                return parent;
+            }
+
+            set
+            {
+                parent = value;
+            }
+        }
+
+        public float H
+        {
+            get
+            {
+                return h;
+            }
+
+            set
+            {
+                h = value;
+            }
+        }
+
+        public float G
+        {
+            get
+            {
+                return g;
+            }
+
+            set
+            {
+                g = value;
+            }
+        }
+
+        public float TotalG
+        {
+            get
+            {
+                return totalG;
+            }
+
+            set
+            {
+                totalG = value;
+            }
+        }
+
+        public TileState State
+        {
+            get
+            {
+                return state;
+            }
+
+            set
+            {
+                state = value;
+            }
+        }
+
         public Tile(Vector2 position, Vector2 gridPos, Tiletype type) : base(position, gridPos)
         {
             this.position = position;
-            this.gridPos = gridPos;
+            this.GridPos = gridPos;
             this.type = type;
             this.layer = 0.5f;
 
@@ -34,47 +99,47 @@ namespace MyLittleWizard
             {
                 case Tiletype.grass:
                     this.sprite = TextureLoader.grass;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
                 case Tiletype.path:
                     this.sprite = TextureLoader.path;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
                 case Tiletype.forest:
                     this.sprite = TextureLoader.forest;
-                    state = TileState.unwalkable;
+                    State = TileState.unwalkable;
                     break;
                 case Tiletype.wall:
                     this.sprite = TextureLoader.wall;
-                    state = TileState.unwalkable;
+                    State = TileState.unwalkable;
                     break;
                 case Tiletype.frostKey:
                     this.sprite = TextureLoader.frostKey;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
                 case Tiletype.potionKey:
                     this.sprite = TextureLoader.potionKey;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
                 case Tiletype.potionTower:
                     this.sprite = TextureLoader.potionTower;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
                 case Tiletype.frostTower:
                     this.sprite = TextureLoader.frostTower;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
                 case Tiletype.monsterPath:
                     this.sprite = TextureLoader.monsterPath;
-                    state = TileState.onceWalkable;
+                    State = TileState.onceWalkable;
                     break;
                 case Tiletype.portal:
                     this.sprite = TextureLoader.portal;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
                 default:
                     this.sprite = TextureLoader.grass;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
             }
             #endregion
@@ -86,47 +151,47 @@ namespace MyLittleWizard
             {
                 case Tiletype.grass:
                     this.sprite = TextureLoader.grass;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
                 case Tiletype.path:
                     this.sprite = TextureLoader.path;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
                 case Tiletype.forest:
                     this.sprite = TextureLoader.forest;
-                    state = TileState.unwalkable;
+                    State = TileState.unwalkable;
                     break;
                 case Tiletype.wall:
                     this.sprite = TextureLoader.wall;
-                    state = TileState.unwalkable;
+                    State = TileState.unwalkable;
                     break;
                 case Tiletype.frostKey:
                     this.sprite = TextureLoader.frostKey;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
                 case Tiletype.potionKey:
                     this.sprite = TextureLoader.potionKey;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
                 case Tiletype.potionTower:
                     this.sprite = TextureLoader.potionTower;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
                 case Tiletype.frostTower:
                     this.sprite = TextureLoader.frostTower;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
                 case Tiletype.monsterPath:
                     this.sprite = TextureLoader.monsterPath;
-                    state = TileState.onceWalkable;
+                    State = TileState.onceWalkable;
                     break;
                 case Tiletype.portal:
                     this.sprite = TextureLoader.portal;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
                 default:
                     this.sprite = TextureLoader.grass;
-                    state = TileState.walkable;
+                    State = TileState.walkable;
                     break;
             }
         }

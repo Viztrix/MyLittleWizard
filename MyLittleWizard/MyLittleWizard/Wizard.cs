@@ -14,8 +14,8 @@ namespace MyLittleWizard
             : base(position, gridPos)
         {
             this.sprite = TextureLoader.wizard;
-            this.gridPos = GetSpawnPoint();
-            this.position = this.gridPos * 64;
+            this.GridPos = GetSpawnPoint();
+            this.position = this.GridPos * 64;
             this.layer = 1;
         }
 

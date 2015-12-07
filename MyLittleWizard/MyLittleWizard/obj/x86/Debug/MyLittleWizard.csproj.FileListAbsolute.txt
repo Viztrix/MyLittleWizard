@@ -34,3 +34,6 @@ C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Window
 C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\Portal.png
 C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\PotionTower.png
 C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\Tree.png
+E:\Projects\MyLittleWIzard\MyLittleWizard\MyLittleWizard\obj\x86\Debug\MyLittleWizard.exe
+E:\Projects\MyLittleWIzard\MyLittleWizard\MyLittleWizard\obj\x86\Debug\MyLittleWizard.pdb
+E:\Projects\MyLittleWIzard\MyLittleWizard\MyLittleWizard\obj\x86\Debug\MyLittleWizard.csprojResolveAssemblyReference.cache

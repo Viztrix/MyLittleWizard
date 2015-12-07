@@ -11,13 +11,29 @@ namespace MyLittleWizard
     public abstract class GameObject
     {
         protected Texture2D sprite;
-        protected Vector2 position, gridPos;
+        protected Vector2 gridPos;
         protected float layer, rotation, scale;
+        protected Vector2 position;
+
+
+
+        public Vector2 GridPos
+        {
+            get
+            {
+                return gridPos;
+            }
+
+            set
+            {
+                gridPos = value;
+            }
+        }
 
         public GameObject(Vector2 position, Vector2 gridPos)
         {
             this.position = position;
-            this.gridPos = gridPos;
+            this.GridPos = gridPos;
         }
 
         public virtual void Update(GameTime gametime)

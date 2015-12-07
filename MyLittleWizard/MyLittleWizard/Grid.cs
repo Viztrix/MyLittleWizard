@@ -8,6 +8,7 @@ namespace MyLittleWizard
 {
     class Grid
     {
+        private List<Tile> aStarList;
         private Tile[,] tiles = new Tile[10, 10];
 
         public Tile[,] Tiles
@@ -157,6 +158,219 @@ namespace MyLittleWizard
                     tiles[x, y].ChangeType();
                 }
             }
+        }
+
+        public Stack<Tile> AStar(Tile start, Tile goal)
+        {
+            ResetParents();
+            List<Tile> open = new List<Tile>();
+            List<Tile> closed = new List<Tile>();
+            open.Add(start);
+
+            Tile current = start;
+            aStarList = new List<Tile>();
+            for (int i = 0; i < 10; i++)
+            {
+                for (int t = 0; t < 10; t++)
+                {
+                    aStarList.Add(GameWorld.GameGrid.tiles[i, t]);
+                }
+            }
+
+            while (open.Count != 0)
+            {
+                for (int x = 0; x < 3; x++)
+                {
+                    for (int y = 0; y < 3; y++)
+                    {
+                        Tile nabo = aStarList.Find(z => z.GridPos == new Vector2(-1 + x + current.GridPos.X, -1 + y + current.GridPos.Y) && z != current && z.State != TileState.unwalkable);
+                        if (!closed.Contains(nabo) && !open.Contains(nabo) && nabo != null)
+                        {
+
+                            nabo.Parent = current;
+                            open.Add(nabo);
+
+
+                        }
+
+                    }
+                }
+                //for (int x = 0; x < 3; x++)
+                //{
+                //    for (int y = 0; y < 3; y++)
+                //    {
+
+                //        Tile wallRemove = open.Find(z => z.GridPos == new Point(-1 + x + current.GridPos.X, -1 + y + current.GridPos.Y) && z.MyType == TileType.WALL);
+                //        open.Remove(wallRemove);
+                //        if (!closed.Contains(wallRemove) && wallRemove != null && (wallRemove.GridPos.X == current.GridPos.X || wallRemove.GridPos.Y == current.GridPos.Y))
+                //        {
+                //            for (int g = 0; g < 3; g++)
+                //            {
+                //                for (int u = 0; u < 3; u++)
+                //                {
+
+                //                    Tile tmpRemove = open.Find(z =>  z.GridPos == new Point(-1 + g + wallRemove.GridPos.X, -1 + u + wallRemove.GridPos.Y) && z != current);
+                //                    if (tmpRemove != null && (wallRemove.GridPos.X == tmpRemove.GridPos.X || wallRemove.GridPos.Y == tmpRemove.GridPos.Y))
+                //                    {
+                //                        open.Remove(tmpRemove);
+
+                //                    }
+                //                }
+                //            }
+
+
+
+                //        }
+
+                //    }
+                //}
+
+                open.Remove(current);
+                closed.Add(current);
+                //calculate stuff
+                Tile tmpCurrent;
+                current = FValue(open, goal, current);
+
+                if (current == goal)
+                {
+                    closed.Add(current);
+                    return Path(goal);
+                }
+                if (current.Parent != null && BetterG(current, open, out tmpCurrent))
+                {
+                    tmpCurrent.Parent = current.Parent;
+                    current = tmpCurrent;
+
+                }
+            }
+            //do stuff with current maybe find path
+            return null;
+
+        }
+
+
+
+        private void ResetParents()
+        {
+            foreach (Tile item in aStarList)
+            {
+                item.Parent = null;
+            }
+        }
+        private void GValue(List<Tile> openList, Tile current)
+        {
+            foreach (Tile item in openList)
+            {
+                if (item.Parent == current)
+                {
+                    if (item.GridPos.X == current.GridPos.X || item.GridPos.Y == current.GridPos.Y)
+                    {
+                        item.G = 10;
+                    }
+                    else
+                    {
+                        item.G = 14;
+                    }
+                    item.TotalG = item.G;
+                    Tile tempParents = item;
+                    while (tempParents.Parent != null)
+                    {
+                        item.TotalG += tempParents.Parent.G;
+                        tempParents = tempParents.Parent;
+                    }
+
+                }
+            }
+        }
+
+        private void HValue(List<Tile> openList, Tile goal)
+        {
+            foreach (Tile item in openList)
+            {
+                item.H = (Math.Abs(goal.GridPos.X - item.GridPos.X) + Math.Abs(goal.GridPos.Y - item.GridPos.Y)) * 10;
+            }
+        }
+
+        private Tile FValue(List<Tile> openList, Tile goal, Tile current)
+        {
+            HValue(openList, goal);
+            GValue(openList, current);
+            float f = float.MaxValue;
+            Tile bestTile = null;
+            foreach (Tile item in openList)
+            {
+                if (item.TotalG + item.H < f)
+                {
+                    f = item.TotalG + item.H;
+                    bestTile = item;
+
+                }
+            }
+            return bestTile;
+
+
+        }
+
+
+
+        private Stack<Tile> Path(Tile goal)
+        {
+            Stack<Tile> path = new Stack<Tile>();
+            Tile next = goal;
+            while (next.Parent != null)
+            {
+                path.Push(next.Parent);
+                next = next.Parent;
+            }
+
+            return path;
+        }
+
+        private bool BetterG(Tile current, List<Tile> open, out Tile bestG)
+        {
+            List<Tile> currentList = new List<Tile>();
+            List<Tile> ParentList = new List<Tile>();
+            Tile currentTile = null;
+            Tile ParentTile = null;
+            float lowestGCurrent = float.MaxValue;
+            float lowestGParent = float.MaxValue;
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 3; y++)
+                {
+                    Tile nabo = open.Find(z => z.GridPos == new Vector2(-1 + x + current.GridPos.X, -1 + y + current.GridPos.Y) && z != current && z.State != TileState.unwalkable);
+                    if (nabo != null && nabo.TotalG < lowestGCurrent)
+                    {
+                        currentTile = nabo;
+                        lowestGCurrent = nabo.TotalG;
+                    }
+                }
+            }
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 3; y++)
+                {
+                    Tile nabo = open.Find(z => z.GridPos == new Vector2(-1 + x + current.Parent.GridPos.X, -1 + y + current.Parent.GridPos.Y) && z != current.Parent && z.State != TileState.unwalkable && z != current);
+                    if (nabo != null && nabo.TotalG < lowestGParent)
+                    {
+                        ParentTile = nabo;
+                        lowestGParent = nabo.TotalG;
+                    }
+                }
+            }
+
+            if (lowestGCurrent <= lowestGParent)
+            {
+                bestG = currentTile;
+                return false;
+            }
+            else
+            {
+                bestG = ParentTile;
+                return true;
+            }
+
+
         }
     }
 }
