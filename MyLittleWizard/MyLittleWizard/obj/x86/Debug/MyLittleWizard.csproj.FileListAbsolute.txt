@@ -75,3 +75,5 @@ C:\Users\Simon\Desktop\MyLittleWizard\MyLittleWizard\MyLittleWizard\obj\x86\Debu
 C:\Users\Simon\Desktop\MyLittleWizard\MyLittleWizard\MyLittleWizard\obj\x86\Debug\MyLittleWizard.csprojResolveAssemblyReference.cache
 C:\Users\Simon\Desktop\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\FrostKeyPath.png
 C:\Users\Simon\Desktop\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\PotionKeyPath.png
+C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\FrostKeyPath.png
+C:\Users\Simon\Documents\MyLittleWizard\MyLittleWizard\MyLittleWizard\bin\Windows\Debug\Content\PotionKeyPath.png

@@ -39,7 +39,6 @@ namespace MyLittleWizard
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            gameObjects = new List<GameObject>();
         }
 
         /// <summary>
@@ -53,6 +52,9 @@ namespace MyLittleWizard
             // TODO: Add your initialization logic here
             graphics.PreferredBackBufferHeight = 640;
             graphics.PreferredBackBufferWidth = 640;
+
+            gameObjects = new List<GameObject>();
+
             this.IsMouseVisible = true;
 
             base.Initialize();
@@ -62,7 +64,6 @@ namespace MyLittleWizard
             gameGrid = new Grid();
             wizard = new Wizard(new Vector2(50, 100), new Vector2(1, 1));
             gameObjects.Add(wizard);
-
         }
 
         /// <summary>
@@ -97,14 +98,27 @@ namespace MyLittleWizard
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (wizard.HasReachedPortal)
+            {
+                this.Exit();
+                Program.Main();
+            }
 
-            this.Window.Title = ("Pos: " + wizard.GridPos.ToString() + " - Goal: {X:" + wizard.Goal.X + " Y:" + wizard.Goal.Y + "} - " + wizard.NextObjective.ToString());
+            try
+            {
+                this.Window.Title = ("Pos: " + wizard.GridPos.ToString() + " - Goal: {X:" + wizard.Goal.X + " Y:" + wizard.Goal.Y + "} - " + wizard.NextObjective.ToString());
+            }
+            catch (System.Exception e)
+            {
+                this.Window.Title = "Pls no";
+            }
+
             // TODO: Add your update logic here
             foreach (GameObject obj in gameObjects)
             {
                 obj.Update(gameTime);
             }
-                
+                       
             base.Update(gameTime);
         }
 

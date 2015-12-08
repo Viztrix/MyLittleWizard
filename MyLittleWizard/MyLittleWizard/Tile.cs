@@ -181,7 +181,6 @@ namespace MyLittleWizard
                             this.sprite = TextureLoader.path;
                         else
                             this.sprite = TextureLoader.frostKeyPath;
-                        hasKey = false;
                     }
                     else if (GameWorld.Wizard != null && this.gridPos == GameWorld.Wizard.GridPos)
                     {
@@ -198,7 +197,6 @@ namespace MyLittleWizard
                             this.sprite = TextureLoader.path;
                         else
                             this.sprite = TextureLoader.potionKeyPath;
-                        hasKey = false;
                     }
                     else if(GameWorld.Wizard != null && this.gridPos == GameWorld.Wizard.GridPos)
                     {

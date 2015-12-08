@@ -13,15 +13,15 @@ namespace MyLittleWizard
         private string[,] tileArray = new string[10, 10]
         {
             {"G", "G","G","G","G","G","G","G","G","G"},     // W = Wall
-            {"G", "P","P","P","P","P","P","G","S","G"},     // P = Path
+            {"G", "P","P","P","P","P","P","G","G","G"},     // P = Path
             {"G", "P","G","G","W","G","P","G","G","G"},     // G = Grass
             {"G", "P","G","W","W","G","P","G","G","G"},     // M = Monster Path
             {"G", "P","G","W","W","G","P","P","P","G"},     // F = Forest
             {"G", "P","G","W","W","G","G","G","P","G"},     // S = Spawn (portal)
             {"G", "P","G","W","W","G","G","G","P","G"},     // FT = Frost Tower
             {"G", "P","P","P","F","F","F","F","P","G"},     // PT = Potion Tower
-            {"G","PT","G","P","M","M","M","M","P","G"},
-            {"G", "G","G","G","F","F","F","F","G","FT"}, 
+            {"G","FT","G","P","M","M","M","M","P","G"},
+            {"S", "G","G","G","F","F","F","F","G","PT"}, 
         };
 
         

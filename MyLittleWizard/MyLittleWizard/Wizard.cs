@@ -15,6 +15,11 @@ namespace MyLittleWizard
         float deltaTime, coolDown;
         private Vector2 goal;
         private Tiletype nextObjective;
+        public bool HasReachedPortal
+        {
+            get { return hasReachedPortal; }
+            set { hasReachedPortal = value; }
+        }
 
         internal Tiletype NextObjective
         {
