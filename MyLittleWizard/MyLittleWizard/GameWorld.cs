@@ -98,7 +98,7 @@ namespace MyLittleWizard
                 Exit();
 
 
-            this.Window.Title = ("Pos: " + wizard.GridPos.ToString() + " - Goal: {X:" + wizard.Goal.X + " Y:" + wizard.Goal.Y + "}");
+            this.Window.Title = ("Pos: " + wizard.GridPos.ToString() + " - Goal: {X:" + wizard.Goal.X + " Y:" + wizard.Goal.Y + "} - " + wizard.NextObjective.ToString());
             // TODO: Add your update logic here
             foreach (GameObject obj in gameObjects)
             {

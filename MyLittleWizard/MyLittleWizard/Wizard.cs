@@ -10,10 +10,16 @@ namespace MyLittleWizard
 
     class Wizard : GameObject
     {
-        private bool hasPotionKey, hasFrostKey, hasReachedFrostTower, hasReachedPotionTower, moving;
+        private bool hasPotionKey, hasFrostKey, hasReachedFrostTower, hasReachedPotionTower, hasReachedPortal, moving;
         private Stack<Tile> path;
         float deltaTime, coolDown;
         private Vector2 goal;
+        private Tiletype nextObjective;
+
+        internal Tiletype NextObjective
+        {
+            get { return nextObjective; }
+        }
         private List<Tile> goals;
 
         public Vector2 Goal
@@ -30,10 +36,14 @@ namespace MyLittleWizard
             this.position = this.GridPos * 64;
             this.layer = 1;
 
+            nextObjective = Tiletype.frostKey;
+
             goals = new List<Tile>();
             goal = new Vector2(5, 8);
-        }
 
+            SetupGoals();
+            ChangeGoal();
+        }
 
         private Vector2 GetSpawnPoint()
         {
@@ -54,7 +64,7 @@ namespace MyLittleWizard
         public override void Update(GameTime gametime)
         {
             deltaTime += gametime.ElapsedGameTime.Milliseconds;
-            coolDown = 1000;
+            coolDown = 250;
 
             if (!moving)
             {
@@ -76,7 +86,8 @@ namespace MyLittleWizard
 
             if(PositionReached(goal))
             {
-                goal = new Vector2(8, 8);
+                CheckForObjective();
+                ChangeGoal();
             }
 
             base.Update(gametime);
@@ -94,16 +105,56 @@ namespace MyLittleWizard
             }
         }
 
-
         private void SetupGoals()
         {
             foreach (Tile tile in GameWorld.GameGrid.Tiles)
             {
-                if (tile.Type == Tiletype.frostKey || tile.Type == Tiletype.potionKey || tile.Type == Tiletype.potionTower || tile.Type == Tiletype.frostTower)
+                if (tile.Type == Tiletype.frostKey || tile.Type == Tiletype.potionKey || tile.Type == Tiletype.potionTower || tile.Type == Tiletype.frostTower || tile.Type == Tiletype.portal)
                 {
                     goals.Add(tile);
                 }
             }
+        }
+
+        private void CheckForObjective()
+        {
+            if(GameWorld.GameGrid.Tiles[(int)gridPos.X, (int)gridPos.Y].Type == nextObjective)
+            {
+                switch (nextObjective)
+                {
+                    case Tiletype.frostKey:
+                        hasFrostKey = true;
+                        nextObjective = Tiletype.frostTower;
+                        GameWorld.GameGrid.Tiles[(int)gridPos.X, (int)gridPos.Y].ChangeType();
+                        break;
+                    case Tiletype.potionKey:
+                        hasPotionKey = true;
+                        nextObjective = Tiletype.potionTower;
+                        GameWorld.GameGrid.Tiles[(int)gridPos.X, (int)gridPos.Y].ChangeType();
+                        break;
+                    case Tiletype.potionTower:
+                        hasReachedPotionTower = true;
+                        nextObjective = Tiletype.portal;
+                        break;
+                    case Tiletype.frostTower:
+                        hasReachedFrostTower = true;
+                        nextObjective = Tiletype.potionKey;
+                        break;
+                    case Tiletype.portal:
+                        hasReachedPortal = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void ChangeGoal()
+        {
+            Tile goalTile;
+            goalTile = goals.Find(z => z.Type == nextObjective);
+            if(goalTile != null)
+            goal = new Vector2(goalTile.GridPos.X, goalTile.GridPos.Y);
         }
     }
 }

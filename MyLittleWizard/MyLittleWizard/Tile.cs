@@ -177,19 +177,32 @@ namespace MyLittleWizard
                 case Tiletype.frostKey:
                     if (hasKey)
                     {
-                        this.sprite = TextureLoader.frostKeyPath;
+                        if(GameWorld.Wizard != null && this.gridPos == GameWorld.Wizard.GridPos)
+                            this.sprite = TextureLoader.path;
+                        else
+                            this.sprite = TextureLoader.frostKeyPath;
                         hasKey = false;
+                    }
+                    else if (GameWorld.Wizard != null && this.gridPos == GameWorld.Wizard.GridPos)
+                    {
+                        this.sprite = TextureLoader.grass;
                     }
                     else
                         this.sprite = TextureLoader.frostKey;
-
                     State = TileState.walkable;
                     break;
                 case Tiletype.potionKey:
                     if(hasKey)
                     {
-                        this.sprite = TextureLoader.potionKeyPath;
+                        if (GameWorld.Wizard != null && this.gridPos == GameWorld.Wizard.GridPos)
+                            this.sprite = TextureLoader.path;
+                        else
+                            this.sprite = TextureLoader.potionKeyPath;
                         hasKey = false;
+                    }
+                    else if(GameWorld.Wizard != null && this.gridPos == GameWorld.Wizard.GridPos)
+                    {
+                        this.sprite = TextureLoader.grass;
                     }
                     else
                         this.sprite = TextureLoader.potionKey;
